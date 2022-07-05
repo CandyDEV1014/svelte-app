@@ -20,7 +20,7 @@
   // init google maps
   onMount(async () => {
     let google = window.google;
-
+    
     const mapOptions = {
       zoom: 12,
     };
@@ -38,18 +38,21 @@
           lng = position.coords.longitude;
           console.log("Latitude:", lat);
           console.log("Longitude:", lng);
-          var pos = new google.maps.LatLng(lat, lng);
 
+          let pos = new google.maps.LatLng(lat, lng);
+          
           map.setCenter(pos);
+
           marker = new google.maps.Marker({
             position: pos,
             map: map,
             draggable: true,
           });
 
+
           radius = defaultRadius;
           console.log("Radius:", radius);
-          circleRadius = defaultRadius * 100;
+          circleRadius = defaultRadius * 1000;
           marker.Circle = new google.maps.Circle({
             center: marker.getPosition(),
             strokeColor: "#3B82F6",
@@ -76,9 +79,9 @@
   // handle geo location
   function handleNoGeolocation(errorFlag) {
     if (errorFlag) {
-      var content = "Error: The Geolocaiton service failed";
+      let content = "Error: The Geolocaiton service failed";
     } else {
-      var content = "Error: Your browser doesn't support geolocation.";
+      let content = "Error: Your browser doesn't support geolocation.";
     }
 
     lat = map_canvas.getAttribute("data-lat");
@@ -86,7 +89,7 @@
     console.log("Latitude:", lat);
     console.log("Longitude:", lng);
 
-    var options = {
+    let options = {
       map: Map,
       position: new google.maps.LatLng(lat, lng),
       content: content,
@@ -101,7 +104,7 @@
 
     radius = defaultRadius;
     console.log("Radius:", radius);
-    circleRadius = defaultRadius * 100;
+    circleRadius = defaultRadius * 1000;
     marker.Circle = new google.maps.Circle({
       center: marker.getPosition(),
       strokeColor: "#3B82F6",
@@ -125,7 +128,7 @@
 
   const onAutoCompletePlaceChanged = (ev) => {
     marker.setVisible(false);
-    var place = ev.detail.place;
+    let place = ev.detail.place;
     if (!place.geometry) {
       return;
     }
@@ -175,7 +178,7 @@
   // change range slider
   const onHandleSlider = (ev) => {
     radius = ev.detail.value;
-    circleRadius = radius * 100;
+    circleRadius = radius * 1000;
     console.log("Radius:", radius);
 
     marker.Circle.setMap(null);
